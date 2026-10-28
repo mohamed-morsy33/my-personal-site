@@ -1,0 +1,15 @@
+<article class="post-card">
+    <a class="post-card-link" href="/posts/{{ fm.slug }}" aria-label="{{ fm.title }}"></a>
+    <div class="post-card-date">
+        <span class="d-day">{{ fm.posted | split(pat="-") | last }}</span>
+        <span class="d-rest">{{ fm.posted_pretty | split(pat=" ") | first }} {{ fm.posted | split(pat="-") | first }}</span>
+    </div>
+    <div class="post-card-body">
+        <h3 class="post-card-title">{{ fm.title }}</h3>
+        <div class="meta">
+            {% if fm.status %}<span class="badge badge-{{ fm.status }}">{{ fm.status }}</span>{% endif %}
+            {% if fm.draft %}<span class="badge badge-draft">draft</span>{% endif %}
+            {% for t in fm.tags %}<a class="tag" href="/tags/{{ t.slug }}">#{{ t.name }}</a>{% endfor %}
+        </div>
+    </div>
+</article>

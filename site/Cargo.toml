@@ -1,16 +1,16 @@
 [package]
 name = "bigmojourney"
 version = "0.1.0"
-edition = "2026"
+edition = "2024"
 
 [dependencies]
-tera = "2.4.0"
+tera = { version = "2.4.0", features = ["glob_fs"] }
 actix-web = "4.17.0"
 env_logger = "0.11.11"
-lazy_static = "1.5.1"
 actix-files = "0.7.0"
-pulldown-cmark = { version = "0.13.3", default-features = false }
-ignore = "0.4.33"
+pulldown-cmark = { version = "0.13.3", default-features = false, features = ["html"] }
 toml = "1.1.8"
 serde = { version = "1.0.229", features = ["derive"] }
 serde_json = "1.0.154"
+chrono = { version = "0.4", features = ["serde"] }
+log = "0.4"

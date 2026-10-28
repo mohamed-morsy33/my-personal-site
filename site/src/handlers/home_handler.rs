@@ -1,42 +1,27 @@
-use actix_web::{get, web, HttpResponse, Responder};
-use serde::{Deserialize, Serialize};
+use actix_web::http::StatusCode;
+use actix_web::{HttpResponse, Responder, get, web};
+use chrono::Local;
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Frontmatter {
-    title: String,
-    file_name: String,
-    description: String,
-    posted: String,
-    tags: Vec<String>,
-    author: String,
-    estimated_reading_time: u32,
-    order: u32,
-}
+use crate::{Site, graph, posts};
 
 #[get("/")]
-pub async fn index(templates: web::Data<tera::Tera) -> impl Responder {
-    let mut context = tera::Context::new();
+pub async fn index(site: web::Data<Site>) -> impl Responder {
+    site.refresh();
+    let posts = site.posts();
+    let today = Local::now().date_naive();
+    let graph = graph::build(&posts, today);
 
-    let frontmatters = vec![Frontmatter{
-        tags: vec!["Math".to_string(), "Coding".to_string()],
-        title: "Test posts".tostring(),
-        file_name: "test_posts.md".to_string(),
-        description: "This is a test".to_string(),
-        posted: "2026-10-25".to_string(),
-        author: "Big Mo".to_string(),
-        estimated_reading_time: 10,
-        order: 1,
-    }];
+    let mut ctx = tera::Context::new();
+    ctx.insert("posts", posts.as_slice());
+    ctx.insert("tags", &posts::tag_counts(&posts));
+    ctx.insert("graph", &graph);
+    site.render("home.html", &ctx, StatusCode::OK)
+}
 
-    context.insert("posts", &frontmatters);
-
-    match templates.render("home.html", &context) {
-        Ok(s) => HttpResponse::Ok().content_type("text/html").body(s),
-        Err(e) => {
-            println!("{:?}", e);
-            HttpResponse::InternalServerError()
-                .content_type("text/html")
-                .body("<p>Somethign went wrong</p>")
-        }
-    }
+#[get("/api/graph")]
+pub async fn graph_json(site: web::Data<Site>) -> impl Responder {
+    site.refresh();
+    let posts = site.posts();
+    let graph = graph::build(&posts, Local::now().date_naive());
+    HttpResponse::Ok().json(graph)
 }

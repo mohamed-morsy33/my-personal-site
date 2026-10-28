@@ -4,28 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#0a0a0a">
     {% block head %}
-    <title>{% block title %}{% endblock title %}</title>
+    <title>{% block title %}thebigmo.dev{% endblock title %}</title>
+    <meta name="description" content="{% block description %}Math, physics and coding problems, solved and simulated.{% endblock description %}">
     {% endblock head %}
-    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <link rel="preload" href="/static/fonts/MochiyPopOne-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/static/fonts/Sniglet-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230a0a0a'/%3E%3Crect x='4' y='4' width='8' height='8' rx='1.5' fill='%23ffd400'/%3E%3C/svg%3E">
+    {% block styles %}{% endblock styles %}
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css?v={{ v }}">
 </head>
 
-<body class="flex flex-col justify-between min-h-screen font-sans leading-normal tracking-normal">
-    <div class="h-16">{% block header %}{% endblock header %}</div>
+<body>
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <a class="brand" href="/">
+                <span class="brand-mark"></span>
+                <span class="brand-text">thebigmo<b>.dev</b></span>
+            </a>
+            <nav class="nav">
+                <a href="/#activity">activity</a>
+                <a href="/#problems">problems</a>
+                <a href="/#tags">tags</a>
+            </nav>
+        </div>
+    </header>
 
-    <main class="container flex-1 w-full md:max-w-3xl mx-auto overflow-x-hidden">
+    <main class="wrap main">
         {% block content %}{% endblock content %}
     </main>
-    {% block footer %}
-    <div class="flex w-full h-20 justify-center items-center">
-        &copy; 2026 by <a class="pl-2" href="https://www.google.com">Big Mo's Blog</a>.
-    </div>
-    {% endblock footer %}
-</body>
 
-<script src="/static/js/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
-</script>
+    {% block footer %}
+    <footer class="site-footer">
+        <div class="wrap footer-inner">
+            <span>&copy; 2026 thebigmo.dev</span>
+        </div>
+    </footer>
+    {% endblock footer %}
+
+    <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+    <script src="/static/js/site.js?v={{ v }}" defer></script>
+    {% block scripts %}{% endblock scripts %}
+</body>
 
 </html>

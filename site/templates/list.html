@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ heading }} | thebigmo.dev{% endblock title %}
+
+{% block content %}
+<section class="page-head">
+    <a class="back" href="/"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>all problems</a>
+    <p class="kicker">{{ kicker }}</p>
+    <h1 class="page-title">{{ heading }}</h1>
+    <p class="muted">{{ posts | length }} post{% if posts | length != 1 %}s{% endif %}</p>
+</section>
+<div class="post-list">
+    {% for fm in posts %}
+    {% include "partials/post_card.html" %}
+    {% endfor %}
+</div>
+{% endblock content %}

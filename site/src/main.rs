@@ -1,16 +1,11 @@
 use std::net::TcpListener;
-use actix_web::{dev::Server, web, App, HttpResponse, HttpServer};
-use tera::Tera;
 
-pub mod handlers;
-
-#[actix_web::main] 
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    std::env::set_var("RUST_LOG", "actix_web=info");
-    env_logger::init();
+    env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
 
-    let listener = TcpListener::bind("0.0.0.0:8080")?;
-    start_blog(listener)?.await?;
-    Ok(())
-
+    let port = std::env::var("PORT").unwrap_or_else(|_| "8080".to_string());
+    let listener = TcpListener::bind(format!("0.0.0.0:{port}"))?;
+    log::info!("listening on http://localhost:{port}");
+    bigmojourney::start_blog(listener)?.await
 }

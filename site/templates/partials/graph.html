@@ -1,0 +1,41 @@
+<section class="card graph-card" id="activity">
+    <div class="graph-top">
+        <div>
+            <p class="kicker">activity</p>
+            <h2 class="graph-title"><span class="accent">{{ graph.total }}</span> problem{% if graph.total != 1 %}s{% endif %} posted {{ graph.range_label }}</h2>
+        </div>
+    </div>
+
+    <div class="graph-scroll">
+        <div class="graph" style="--cols: {{ graph.columns }}">
+            <div class="graph-months">
+                {% for m in graph.months %}
+                <span style="grid-column: {{ m.col + 1 }}">{{ m.name }}</span>
+                {% endfor %}
+            </div>
+            <div class="graph-days">
+                <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
+            </div>
+            <div class="graph-grid">
+                {% for week in graph.weeks %}{% for day in week.days %}{% if day.pad or day.future %}<span class="cg-cell cg-pad"></span>{% elif day.href %}<a class="cg-cell cg-l{{ day.level }}{% if day.today %} cg-today{% endif %}" href="{{ day.href }}" data-label="{{ day.label }}" data-count="{{ day.count }}" data-titles="{{ day.titles | join(sep='|') }}" aria-label="{{ day.count }} post{% if day.count != 1 %}s{% endif %} on {{ day.label }}"></a>{% else %}<span class="cg-cell cg-l0{% if day.today %} cg-today{% endif %}" data-label="{{ day.label }}" data-count="0"></span>{% endif %}{% endfor %}{% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="graph-foot">
+        <div class="streaks">
+            <div class="stat"><span class="stat-num">{{ graph.current_streak }}</span><span class="stat-label">day streak</span></div>
+            <div class="stat"><span class="stat-num">{{ graph.longest_streak }}</span><span class="stat-label">longest streak</span></div>
+            <div class="stat"><span class="stat-num">{{ graph.active_days }}</span><span class="stat-label">active days</span></div>
+        </div>
+        <div class="legend">
+            <span>less</span>
+            <span class="cg-cell cg-l0"></span>
+            <span class="cg-cell cg-l1"></span>
+            <span class="cg-cell cg-l2"></span>
+            <span class="cg-cell cg-l3"></span>
+            <span class="cg-cell cg-l4"></span>
+            <span>more</span>
+        </div>
+    </div>
+</section>

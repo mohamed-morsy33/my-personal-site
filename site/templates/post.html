@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} | thebigmo.dev{% endblock title %}
+{% block description %}{{ post.description }}{% endblock description %}
+
+{% block styles %}
+{% if post.has_math %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+{% endif %}
+{% if post.has_code %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+{% endif %}
+{% endblock styles %}
+
+{% block content %}
+<article class="post">
+    <header class="post-head">
+        <a class="back" href="/"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>all problems</a>
+        <div class="meta">
+            {% if post.status %}<span class="badge badge-{{ post.status }}">{{ post.status }}</span>{% endif %}
+            {% if post.draft %}<span class="badge badge-draft">draft</span>{% endif %}
+            <a class="muted" href="/on/{{ post.posted }}">{{ post.posted_pretty }}</a>
+        </div>
+        <h1 class="post-title">{{ post.title }}</h1>
+        <div class="post-tags">
+            {% for t in post.tags %}<a class="tag-pill" href="/tags/{{ t.slug }}">{{ t.name }}</a>{% endfor %}
+        </div>
+    </header>
+
+    {% if problem %}
+    <section class="problem">
+        <div class="problem-label">problem</div>
+        <div class="prose">{{ problem | safe }}</div>
+    </section>
+    {% endif %}
+
+    <div class="prose">
+        {{ content | safe }}
+    </div>
+
+    <nav class="post-nav">
+        {% if older %}
+        <a class="post-nav-link" href="/posts/{{ older.slug }}">
+            <span class="muted nav-dir"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>older</span>
+            <span>{{ older.title }}</span>
+        </a>
+        {% else %}<span></span>{% endif %}
+        {% if newer %}
+        <a class="post-nav-link right" href="/posts/{{ newer.slug }}">
+            <span class="muted nav-dir">newer<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span>{{ newer.title }}</span>
+        </a>
+        {% endif %}
+    </nav>
+</article>
+{% endblock content %}
+
+{% block scripts %}
+{% if post.has_math %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" defer></script>
+{% endif %}
+{% if post.has_code %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js" defer></script>
+{% endif %}
+{% for sim in post.sims %}
+<script src="/static/sims/{{ sim }}.js" defer></script>
+{% endfor %}
+{% endblock scripts %}
