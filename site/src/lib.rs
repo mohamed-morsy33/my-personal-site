@@ -7,8 +7,10 @@ use actix_web::http::StatusCode;
 use actix_web::{App, HttpResponse, HttpServer, dev::Server, middleware, web};
 use tera::Tera;
 
+pub mod export;
 pub mod graph;
 pub mod handlers;
+pub mod pages;
 pub mod posts;
 
 use posts::Post;
@@ -60,6 +62,14 @@ impl Site {
 
     pub fn posts(&self) -> Arc<Vec<Post>> {
         self.posts.read().unwrap().clone()
+    }
+
+    pub fn render_string(&self, name: &str, ctx: &tera::Context) -> Result<String, String> {
+        self.tera
+            .read()
+            .unwrap()
+            .render(name, ctx)
+            .map_err(|e| format!("render of {name} failed: {e:?}"))
     }
 
     pub fn render(&self, name: &str, ctx: &tera::Context, status: StatusCode) -> HttpResponse {

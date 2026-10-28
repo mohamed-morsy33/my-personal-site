@@ -2,16 +2,8 @@ use actix_web::http::StatusCode;
 use actix_web::{HttpResponse, Responder, get, web};
 use chrono::NaiveDate;
 
-use crate::Site;
-use crate::posts::{Post, pretty_date, slugify};
-
-fn list_page(site: &Site, kicker: &str, heading: &str, posts: Vec<&Post>) -> HttpResponse {
-    let mut ctx = tera::Context::new();
-    ctx.insert("kicker", kicker);
-    ctx.insert("heading", heading);
-    ctx.insert("posts", &posts);
-    site.render("list.html", &ctx, StatusCode::OK)
-}
+use crate::posts::{pretty_date, slugify};
+use crate::{Site, pages};
 
 #[get("/posts/{slug}")]
 pub async fn post(site: web::Data<Site>, path: web::Path<String>) -> impl Responder {
@@ -22,15 +14,7 @@ pub async fn post(site: web::Data<Site>, path: web::Path<String>) -> impl Respon
     let Some(idx) = posts.iter().position(|p| p.slug == slug) else {
         return not_found_page(&site);
     };
-    let post = &posts[idx];
-
-    let mut ctx = tera::Context::new();
-    ctx.insert("post", post);
-    ctx.insert("content", &post.content);
-    ctx.insert("problem", &post.problem);
-    ctx.insert("newer", &idx.checked_sub(1).and_then(|i| posts.get(i)));
-    ctx.insert("older", &posts.get(idx + 1));
-    site.render("post.html", &ctx, StatusCode::OK)
+    site.render("post.html", &pages::post(&posts, idx), StatusCode::OK)
 }
 
 #[get("/tags/{tag}")]
@@ -38,18 +22,14 @@ pub async fn tag(site: web::Data<Site>, path: web::Path<String>) -> impl Respond
     site.refresh();
     let slug = slugify(&path.into_inner());
     let posts = site.posts();
-    let matching: Vec<&Post> = posts
-        .iter()
-        .filter(|p| p.tags.iter().any(|t| t.slug == slug))
-        .collect();
-    let Some(name) = matching
-        .first()
-        .and_then(|p| p.tags.iter().find(|t| t.slug == slug))
-        .map(|t| t.name.clone())
-    else {
+    let Some((heading, matching)) = pages::tag_posts(&posts, &slug) else {
         return not_found_page(&site);
     };
-    list_page(&site, "tagged", &format!("#{name}"), matching)
+    site.render(
+        "list.html",
+        &pages::list("tagged", &heading, &matching),
+        StatusCode::OK,
+    )
 }
 
 #[get("/on/{date}")]
@@ -59,11 +39,15 @@ pub async fn day(site: web::Data<Site>, path: web::Path<String>) -> impl Respond
         return not_found_page(&site);
     };
     let posts = site.posts();
-    let matching: Vec<&Post> = posts.iter().filter(|p| p.date == date).collect();
+    let matching = pages::day_posts(&posts, date);
     if matching.is_empty() {
         return not_found_page(&site);
     }
-    list_page(&site, "posted on", &pretty_date(date), matching)
+    site.render(
+        "list.html",
+        &pages::list("posted on", &pretty_date(date), &matching),
+        StatusCode::OK,
+    )
 }
 
 fn not_found_page(site: &Site) -> HttpResponse {
