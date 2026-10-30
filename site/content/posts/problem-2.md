@@ -1,7 +1,7 @@
 +++
 title = "Quadratic Approximation"
 posted = 2026-10-28
-tags = ["Math"]
+tags = ["Math", "Calculus"]
 status = "solved"
 problem = '''
 Approximate $f(x,y)=e^{x/2}\sin y$ near the point $(0,\tfrac{\pi}{2})$, where $f(0,\tfrac{\pi}{2}) = 1$.

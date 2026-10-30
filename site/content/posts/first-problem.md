@@ -1,7 +1,7 @@
 +++
 title = "Euler's Formula & Euler's Identity"
 posted = 2026-10-27
-tags = ["Math"]
+tags = ["Math", "Calculus"]
 status = "solved"
 problem = '''
 Prove Euler's Formula and Identity:
