@@ -187,6 +187,7 @@ pre {
 
 .nav {
     display: flex;
+    align-items: center;
     gap: 22px;
     font-family: var(--font-body);
     font-size: 13px;
@@ -195,6 +196,29 @@ pre {
 
 .nav a:hover {
     color: var(--yellow);
+}
+
+.nav-github {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    transition: all 0.15s ease;
+}
+
+.nav-github svg {
+    width: 17px;
+    height: 17px;
+    fill: currentColor;
+}
+
+.nav .nav-github:hover {
+    color: #000;
+    background: var(--yellow);
+    border-color: var(--yellow);
 }
 
 .site-footer {
