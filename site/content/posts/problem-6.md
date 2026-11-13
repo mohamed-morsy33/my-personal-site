@@ -17,8 +17,8 @@ To go about proving this, we use the **element method**:
 
 $$
 \begin{align}
-A = {n \in \mathbb{Z} | n = 4p, p \in \mathbb{Z}} \\ 
-B = {m \in \mathbb{Z} | n = 2q, q \in \mathbb{Z}} \\
+A = \{n \in \mathbb{Z} | n = 4p, p \in \mathbb{Z}\} \\ 
+B = \{m \in \mathbb{Z} | n = 2q, q \in \mathbb{Z}\} \\
 \end{align}
 $$
 
