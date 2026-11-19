@@ -65,6 +65,25 @@ $$
 \text{Then } a = sb = s(tc) = c(st), st \in \mathbb{Z}
 $$
 
+<figure class="diagram">
+<svg viewBox="0 0 660 200" role="img" aria-label="Example with a = 12, b = 6, c = 2. a splits into s = 2 blocks of b, each b splits into t = 3 blocks of c, so a is 6 blocks of c.">
+<text x="86" y="42" text-anchor="end">a = 12</text>
+<rect class="hi" fill="var(--yellow-dim)" x="102" y="20" width="452" height="34" rx="6"/>
+<text x="86" y="102" text-anchor="end">b = 6</text>
+<rect class="ink" x="102" y="80" width="224" height="34" rx="6"/>
+<rect class="ink" x="330" y="80" width="224" height="34" rx="6"/>
+<text x="86" y="162" text-anchor="end">c = 2</text>
+<rect class="ink" x="102" y="140" width="72" height="34" rx="6"/>
+<rect class="ink" x="178" y="140" width="72" height="34" rx="6"/>
+<rect class="ink" x="254" y="140" width="72" height="34" rx="6"/>
+<rect class="ink" x="330" y="140" width="72" height="34" rx="6"/>
+<rect class="ink" x="406" y="140" width="72" height="34" rx="6"/>
+<rect class="ink" x="482" y="140" width="72" height="34" rx="6"/>
+<text class="dim" x="568" y="102">s = 2</text>
+<text class="dim" x="568" y="162">st = 6</text>
+</svg>
+</figure>
+
 We know that if $a = cu$, where $u\in\mathbb{Z}$, then $c|a$. Letting $u=st$:
 
 $$

@@ -1218,6 +1218,52 @@ span.cg-l0:hover {
     font-style: italic;
 }
 
+.diagram {
+    margin: 2em 0;
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius);
+    background-color: #070707;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 28px 28px;
+    overflow: hidden;
+}
+
+.diagram svg {
+    display: block;
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    margin: 0 auto;
+    padding: 12px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.diagram figcaption {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+}
+
+.diagram .ax { stroke: var(--border-2); stroke-width: 1.5; }
+.diagram .guide { stroke: var(--muted); stroke-dasharray: 5 6; }
+.diagram .ink { stroke: var(--text-2); stroke-width: 2; }
+.diagram .hi { stroke: var(--yellow); stroke-width: 2.5; }
+.diagram .fill { fill: var(--yellow-dim); stroke: none; }
+.diagram .dot { fill: var(--yellow); stroke: none; }
+.diagram .dot-ink { fill: var(--text-2); stroke: none; }
+.diagram text { fill: var(--text-2); stroke: none; }
+.diagram text.hi { fill: var(--yellow); stroke: none; }
+.diagram text.dim { fill: var(--muted); font-size: 13px; }
+
 .post-nav {
     display: grid;
     grid-template-columns: 1fr 1fr;

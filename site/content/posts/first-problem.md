@@ -52,6 +52,31 @@ Therefore, we arrive at Euler's formula:
 
 $$ e^{ix}=\cos x+i\sin x$$
 
+<figure class="diagram">
+<svg viewBox="0 0 420 310" role="img" aria-label="Unit circle in the complex plane. The point e to the ix sits at angle x, with real part cos x and imaginary part sin x. Going half way round, angle pi, lands on minus one.">
+<line class="ax" x1="60" y1="165" x2="360" y2="165"/>
+<line class="ax" x1="210" y1="35" x2="210" y2="295"/>
+<text class="dim" x="364" y="169">Re</text>
+<text class="dim" x="216" y="40">Im</text>
+<circle class="ink" cx="210" cy="165" r="110" stroke-width="1.5"/>
+<path class="hi" d="M320,165 A110,110 0 0 0 100,165" opacity="0.35" stroke-width="6"/>
+<line class="hi" x1="210" y1="165" x2="273.1" y2="74.9"/>
+<line class="guide" x1="273.1" y1="74.9" x2="273.1" y2="165"/>
+<line class="hi" x1="210" y1="165" x2="273.1" y2="165"/>
+<path class="ink" d="M240,165 A30,30 0 0 0 227.2,140.4" stroke-width="1.5"/>
+<text x="246" y="155">x</text>
+<text x="241.5" y="187" text-anchor="middle">cos x</text>
+<text x="279.1" y="153">sin x</text>
+<circle class="dot" cx="273.1" cy="74.9" r="5"/>
+<text class="hi" x="283.1" y="68.9">e<tspan dy="-7" font-size="11">ix</tspan></text>
+<circle class="dot-ink" cx="320" cy="165" r="4"/>
+<text class="dim" x="326" y="183">1</text>
+<circle class="dot" cx="100" cy="165" r="5"/>
+<text class="hi" x="94" y="187" text-anchor="end">e<tspan dy="-7" font-size="11">iπ</tspan> = −1</text>
+<text class="hi" x="150" y="63" text-anchor="end">x = π</text>
+</svg>
+</figure>
+
 Additionally, if we plug in $\pi$, we get Euler's Identity:
 
 $$
