@@ -57,8 +57,8 @@ pub fn home(posts: &[Post], today: NaiveDate) -> tera::Context {
     });
     insert_seo(
         &mut ctx,
-        format!("{AUTHOR} | Math Problems & Physics Solutions"),
-        format!("{AUTHOR}'s blog of worked math problems and physics solutions, covering calculus, proofs, vector calculus, mechanics and simulations."),
+        format!("{AUTHOR} | Math & Physics Blog"),
+        format!("{AUTHOR}'s personal blog relating to math and physics."),
         "/",
         "website",
         false,
@@ -111,7 +111,7 @@ pub fn list(kicker: &str, heading: &str, path: &str, posts: &[&Post]) -> tera::C
     let (title, description) = if is_tag {
         (
             format!("{name} Problems & Solutions | {AUTHOR}"),
-            format!("Worked {name} problems and step-by-step solutions by {AUTHOR}."),
+            format!("{name} problems from {AUTHOR}'s personal blog relating to math and physics."),
         )
     } else {
         (
