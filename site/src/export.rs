@@ -67,6 +67,21 @@ pub fn export(site: &Site, out: &Path) -> Result<(), String> {
         }
     }
 
+    let ramblings = site.ramblings();
+    write_page(out, "ramblings", site.render_string("ramblings.html", &pages::ramblings(&ramblings))?)?;
+    pages_written += 1;
+    if !ramblings.is_empty() {
+        sitemap_paths.push("/ramblings/".to_string());
+    }
+    for (idx, post) in ramblings.iter().enumerate() {
+        let html = site.render_string("rambling.html", &pages::rambling(&ramblings, idx))?;
+        write_page(out, &format!("ramblings/{}", post.slug), html)?;
+        pages_written += 1;
+        if !post.noindex {
+            sitemap_paths.push(format!("/ramblings/{}/", post.slug));
+        }
+    }
+
     let dates: BTreeSet<_> = posts.iter().map(|p| p.date).collect();
     for date in dates {
         let matching = pages::day_posts(&posts, date);

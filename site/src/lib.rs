@@ -22,6 +22,7 @@ pub struct Site {
     pub live_reload: bool,
     tera: RwLock<Tera>,
     posts: RwLock<Arc<Vec<Post>>>,
+    ramblings: RwLock<Arc<Vec<Post>>>,
 }
 
 fn load_templates(root: &PathBuf) -> Result<Tera, String> {
@@ -43,12 +44,14 @@ impl Site {
     pub fn new(root: PathBuf, live_reload: bool) -> Result<Self, String> {
         let tera = load_templates(&root)?;
         let posts = posts::load_posts(&root, live_reload);
-        log::info!("loaded {} posts from {}", posts.len(), root.display());
+        let ramblings = posts::load_ramblings(&root, live_reload);
+        log::info!("loaded {} posts and {} ramblings from {}", posts.len(), ramblings.len(), root.display());
         Ok(Self {
             root,
             live_reload,
             tera: RwLock::new(tera),
             posts: RwLock::new(Arc::new(posts)),
+            ramblings: RwLock::new(Arc::new(ramblings)),
         })
     }
 
@@ -61,10 +64,15 @@ impl Site {
             Err(e) => log::error!("template reload failed: {e}"),
         }
         *self.posts.write().unwrap() = Arc::new(posts::load_posts(&self.root, true));
+        *self.ramblings.write().unwrap() = Arc::new(posts::load_ramblings(&self.root, true));
     }
 
     pub fn posts(&self) -> Arc<Vec<Post>> {
         self.posts.read().unwrap().clone()
+    }
+
+    pub fn ramblings(&self) -> Arc<Vec<Post>> {
+        self.ramblings.read().unwrap().clone()
     }
 
     pub fn render_string(&self, name: &str, ctx: &tera::Context) -> Result<String, String> {
@@ -114,6 +122,8 @@ pub fn start_blog(listener: TcpListener) -> Result<Server, std::io::Error> {
             .service(handlers::post)
             .service(handlers::tag)
             .service(handlers::day)
+            .service(handlers::ramblings)
+            .service(handlers::rambling)
             .service(handlers::graph_json)
             .service(Files::new("/static", static_dir.clone()))
             .default_service(web::to(handlers::not_found))

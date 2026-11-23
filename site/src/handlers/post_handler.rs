@@ -55,6 +55,24 @@ pub async fn day(site: web::Data<Site>, path: web::Path<String>) -> impl Respond
     )
 }
 
+#[get("/ramblings")]
+pub async fn ramblings(site: web::Data<Site>) -> impl Responder {
+    site.refresh();
+    site.render("ramblings.html", &pages::ramblings(&site.ramblings()), StatusCode::OK)
+}
+
+#[get("/ramblings/{slug}")]
+pub async fn rambling(site: web::Data<Site>, path: web::Path<String>) -> impl Responder {
+    site.refresh();
+    let raw = path.into_inner();
+    let slug = slugify(raw.strip_suffix(".md").unwrap_or(&raw));
+    let all = site.ramblings();
+    let Some(idx) = all.iter().position(|p| p.slug == slug) else {
+        return not_found_page(&site);
+    };
+    site.render("rambling.html", &pages::rambling(&all, idx), StatusCode::OK)
+}
+
 fn not_found_page(site: &Site) -> HttpResponse {
     site.render("404.html", &pages::not_found(), StatusCode::NOT_FOUND)
 }

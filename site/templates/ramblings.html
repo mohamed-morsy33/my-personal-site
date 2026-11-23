@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block body_class %}theme-red{% endblock body_class %}
+
+{% block content %}
+<section class="page-head">
+    <a class="back" href="/"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>home</a>
+    <h1 class="page-title">ramblings</h1>
+    <p class="muted">{{ posts | length }} post{% if posts | length != 1 %}s{% endif %}</p>
+</section>
+<div class="post-list">
+    {% for fm in posts %}
+    <article class="post-card">
+        <a class="post-card-link" href="/ramblings/{{ fm.slug }}" aria-label="{{ fm.title }}"></a>
+        <div class="post-card-date">
+            <span class="d-day">{{ fm.posted | split(pat="-") | last }}</span>
+            <span class="d-rest">{{ fm.posted_pretty | split(pat=" ") | first }} {{ fm.posted | split(pat="-") | first }}</span>
+        </div>
+        <div class="post-card-body">
+            <h2 class="post-card-title">{{ fm.title }}</h2>
+            {% if fm.draft %}<div class="meta"><span class="badge badge-draft">draft</span></div>{% endif %}
+        </div>
+    </article>
+    {% else %}
+    <p class="empty">Nothing here yet.</p>
+    {% endfor %}
+</div>
+{% endblock content %}

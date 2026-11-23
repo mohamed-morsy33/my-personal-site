@@ -61,10 +61,11 @@
     --text: #ece9e1;
     --text-2: #b9b5ab;
     --muted: #7d7a73;
+    --yellow-rgb: 255, 212, 0;
     --yellow: #ffd400;
     --yellow-2: #ffe14d;
-    --yellow-dim: rgba(255, 212, 0, 0.12);
-    --yellow-glow: rgba(255, 212, 0, 0.45);
+    --yellow-dim: rgba(var(--yellow-rgb), 0.12);
+    --yellow-glow: rgba(var(--yellow-rgb), 0.45);
     --cell-0: #262626;
     --cell-1: #c9a400;
     --cell-2: #e8be00;
@@ -95,7 +96,7 @@ body {
     display: flex;
     flex-direction: column;
     background:
-        radial-gradient(1200px 500px at 85% -10%, rgba(255, 212, 0, 0.07), transparent 60%),
+        radial-gradient(1200px 500px at 85% -10%, rgba(var(--yellow-rgb), 0.07), transparent 60%),
         linear-gradient(var(--bg), var(--bg));
     background-color: var(--bg);
     color: var(--text);
@@ -219,6 +220,31 @@ pre {
     color: #000;
     background: var(--yellow);
     border-color: var(--yellow);
+}
+
+.nav .nav-ramblings {
+    padding: 5px 12px;
+    border: 1px solid rgba(255, 69, 69, 0.55);
+    border-radius: 999px;
+    background: rgba(255, 69, 69, 0.12);
+    color: #ff7a7a;
+    transition: all 0.15s ease;
+}
+
+.nav .nav-ramblings:hover,
+.theme-red .nav .nav-ramblings {
+    background: #ff4545;
+    border-color: #ff4545;
+    color: #000;
+}
+
+/* the ramblings section: every accent on the page follows these */
+.theme-red {
+    --yellow-rgb: 255, 69, 69;
+    --yellow: #ff4545;
+    --yellow-2: #ff7a7a;
+    --yellow-dim: rgba(255, 69, 69, 0.12);
+    --yellow-glow: rgba(255, 69, 69, 0.45);
 }
 
 .site-footer {
@@ -450,7 +476,7 @@ pre {
 }
 
 a.cg-cell {
-    box-shadow: 0 0 8px rgba(255, 212, 0, 0.3);
+    box-shadow: 0 0 8px rgba(var(--yellow-rgb), 0.3);
     transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
@@ -601,7 +627,7 @@ span.cg-l0:hover {
 }
 
 .post-card:hover {
-    border-color: rgba(255, 212, 0, 0.5);
+    border-color: rgba(var(--yellow-rgb), 0.5);
     background: var(--surface-2);
     transform: translateY(-2px);
 }
@@ -690,7 +716,7 @@ span.cg-l0:hover {
 
 .chip-sim {
     color: var(--yellow);
-    border-color: rgba(255, 212, 0, 0.35);
+    border-color: rgba(var(--yellow-rgb), 0.35);
     background: var(--yellow-dim);
 }
 
@@ -876,8 +902,8 @@ span.cg-l0:hover {
     margin: 0 0 36px;
     padding: 24px 24px 8px;
     border-radius: var(--radius);
-    background: linear-gradient(135deg, rgba(255, 212, 0, 0.09), rgba(255, 212, 0, 0.02));
-    border: 1px solid rgba(255, 212, 0, 0.35);
+    background: linear-gradient(135deg, rgba(var(--yellow-rgb), 0.09), rgba(var(--yellow-rgb), 0.02));
+    border: 1px solid rgba(var(--yellow-rgb), 0.35);
 }
 
 .problem-label {
@@ -946,7 +972,7 @@ span.cg-l0:hover {
 
 .prose a {
     color: var(--yellow);
-    border-bottom: 1px solid rgba(255, 212, 0, 0.35);
+    border-bottom: 1px solid rgba(var(--yellow-rgb), 0.35);
 }
 
 .prose a:hover {

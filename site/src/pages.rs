@@ -75,7 +75,37 @@ pub fn post(posts: &[Post], idx: usize) -> tera::Context {
     ctx.insert("problem", &post.problem);
     ctx.insert("newer", &idx.checked_sub(1).and_then(|i| posts.get(i)));
     ctx.insert("older", &posts.get(idx + 1));
-    let path = format!("/posts/{}/", post.slug);
+    insert_article_seo(&mut ctx, post, &format!("/posts/{}/", post.slug));
+    ctx
+}
+
+pub fn ramblings(ramblings: &[Post]) -> tera::Context {
+    let mut ctx = tera::Context::new();
+    ctx.insert("posts", ramblings);
+    insert_seo(
+        &mut ctx,
+        format!("Ramblings | {AUTHOR}"),
+        format!("Personal posts and random thoughts from {AUTHOR}."),
+        "/ramblings/",
+        "website",
+        ramblings.is_empty(), // an empty page shouldn't be indexed
+        None,
+    );
+    ctx
+}
+
+pub fn rambling(ramblings: &[Post], idx: usize) -> tera::Context {
+    let post = &ramblings[idx];
+    let mut ctx = tera::Context::new();
+    ctx.insert("post", post);
+    ctx.insert("content", &post.content);
+    ctx.insert("newer", &idx.checked_sub(1).and_then(|i| ramblings.get(i)));
+    ctx.insert("older", &ramblings.get(idx + 1));
+    insert_article_seo(&mut ctx, post, &format!("/ramblings/{}/", post.slug));
+    ctx
+}
+
+fn insert_article_seo(ctx: &mut tera::Context, post: &Post, path: &str) {
     let keywords: Vec<&str> = post.tags.iter().map(|t| t.name.as_str()).collect();
     let schema = json!({
         "@context": "https://schema.org",
@@ -89,15 +119,14 @@ pub fn post(posts: &[Post], idx: usize) -> tera::Context {
         "author": person()
     });
     insert_seo(
-        &mut ctx,
+        ctx,
         format!("{} | {AUTHOR}", post.title),
         post.description.clone(),
-        &path,
+        path,
         "article",
         post.noindex,
         Some(schema),
     );
-    ctx
 }
 
 pub fn list(kicker: &str, heading: &str, path: &str, posts: &[&Post]) -> tera::Context {

@@ -273,7 +273,7 @@ fn parse_post(slug: &str, src: &str) -> Result<Post, String> {
     Ok(Post {
         slug: slug.to_string(),
         description: if fm.description.trim().is_empty() {
-            format!("{}: a worked solution by {}.", fm.title, fm.author)
+            format!("{}, by {}.", fm.title, fm.author)
         } else {
             fm.description
         },
@@ -304,7 +304,15 @@ fn parse_post(slug: &str, src: &str) -> Result<Post, String> {
 }
 
 pub fn load_posts(root: &Path, include_drafts: bool) -> Vec<Post> {
-    let dir = root.join("content").join("posts");
+    load_dir(root, "posts", include_drafts)
+}
+
+pub fn load_ramblings(root: &Path, include_drafts: bool) -> Vec<Post> {
+    load_dir(root, "ramblings", include_drafts)
+}
+
+fn load_dir(root: &Path, folder: &str, include_drafts: bool) -> Vec<Post> {
+    let dir = root.join("content").join(folder);
     let entries = match fs::read_dir(&dir) {
         Ok(e) => e,
         Err(e) => {
