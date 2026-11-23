@@ -1,5 +1,6 @@
 +++
 title = "Point-Slope Form via Polynomial Interpolation"
+description = "Derive the point-slope formula from the Lagrange interpolation theorem, connecting polynomial interpolation to the equation of a line."
 posted = 2026-10-31
 tags = ["Math", "Numerical Methods", "Calculus", "Linear Algebra"]
 status = "solved"
@@ -98,26 +99,3 @@ Through some algebraic maniuplation, we get point-slope form:
 $$
 \boxed{p_1(x) = y_1 + \frac{(y_2-y_1)}{(x_2-x_1)}(x-x_1)}
 $$
-
-<figure class="diagram">
-<svg viewBox="0 0 580 290" role="img" aria-label="Points (1, 1) and (4, 3). The lines y1 L1 and y2 L2 each pass through one point and are zero at the other; their sum is the line through both points.">
-<line class="ax" x1="50" y1="204.6" x2="530" y2="204.6"/>
-<line class="ax" x1="50" y1="20" x2="50" y2="260"/>
-<path class="guide" d="M50,143.1 L530,220" stroke-width="1.8"/>
-<path class="ink" d="M50,250.8 L530,20" stroke-dasharray="2 6" stroke-width="2.2"/>
-<path class="hi" d="M50,189.2 L530,35.4"/>
-<line class="ax" x1="146" y1="204.6" x2="146" y2="158.5" stroke-dasharray="3 4"/>
-<line class="ax" x1="434" y1="204.6" x2="434" y2="66.2" stroke-dasharray="3 4"/>
-<circle class="dot" cx="146" cy="158.5" r="5"/>
-<circle class="dot" cx="434" cy="66.2" r="5"/>
-<circle class="dot-ink" cx="434" cy="204.6" r="3.5"/>
-<circle class="dot-ink" cx="146" cy="204.6" r="3.5"/>
-<text class="hi" x="138" y="148.5" text-anchor="end">(x₁, y₁)</text>
-<text class="hi" x="442" y="90.2">(x₂, y₂)</text>
-<text class="hi" x="78.8" y="38.5">p₁ = y₁L₁ + y₂L₂</text>
-<text x="64.4" y="133.1">y₁L₁</text>
-<text x="290" y="160.8">y₂L₂</text>
-<text class="dim" x="530" y="220.6" text-anchor="end">x</text>
-</svg>
-<figcaption>Each basis line y<sub>k</sub>L<sub>k</sub> hits its own point and is zero at the other. Adding them gives the line through both points (yellow).</figcaption>
-</figure>

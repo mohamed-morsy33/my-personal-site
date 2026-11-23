@@ -1,5 +1,6 @@
 +++
 title = "Why 45° Is the Best Launch Angle (and Why Air Ruins It)"
+description = "Derive projectile range, flight time and height, prove 45° maximizes range, then simulate how quadratic air drag lowers the best launch angle."
 posted = 2026-11-15
 tags = ["Physics", "Mechanics", "Kinematics"]
 status = "solved"

@@ -25,10 +25,12 @@ struct Frontmatter {
     order: i32,
     #[serde(default)]
     draft: bool,
+    #[serde(default)]
+    noindex: bool,
 }
 
 fn default_author() -> String {
-    "Big Mo".to_string()
+    "Mohamed Morsy".to_string()
 }
 
 #[derive(Serialize, Clone, Debug)]
@@ -58,6 +60,7 @@ pub struct Post {
     pub has_math: bool,
     pub has_code: bool,
     pub draft: bool,
+    pub noindex: bool,
     pub order: i32,
     #[serde(skip)]
     pub date: NaiveDate,
@@ -269,8 +272,12 @@ fn parse_post(slug: &str, src: &str) -> Result<Post, String> {
     
     Ok(Post {
         slug: slug.to_string(),
+        description: if fm.description.trim().is_empty() {
+            format!("{}: a worked solution by {}.", fm.title, fm.author)
+        } else {
+            fm.description
+        },
         title: fm.title,
-        description: fm.description,
         posted: date.format("%Y-%m-%d").to_string(),
         posted_pretty: pretty_date(date),
         tags: fm
@@ -288,6 +295,7 @@ fn parse_post(slug: &str, src: &str) -> Result<Post, String> {
         has_math: info.has_math,
         has_code: info.has_code,
         draft: fm.draft,
+        noindex: fm.noindex,
         order: fm.order,
         date,
         content,

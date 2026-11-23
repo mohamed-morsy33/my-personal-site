@@ -1,5 +1,6 @@
 +++
 title = "Lebesgue Integrals"
+description = "Evaluate the integral of the Dirichlet function on [0, 1] with Lebesgue integration, and see why it is not Riemann integrable."
 posted = 2026-11-12
 tags = ["Calculus", "Measure Theory"]
 status = "solved"
@@ -36,21 +37,6 @@ By using lebesgue integration, let $\mu(E)$ be the lebesgue measure ("size" for 
 $$
 \int_0^1 D(x) \, dx = 1 * \mu(\mathbb{Q}\cap{[0, 1]}) + 0 * (\mathbb{Q}^C\cap{[0,1]}) = 1\cdot 0 + 0\cdot 1 = \boxed{0}
 $$
-
-<figure class="diagram">
-<svg viewBox="0 0 560 250" role="img" aria-label="The Dirichlet function on 0 to 1. It is 1 on the rationals, a set of measure 0, and 0 on the irrationals, a set of measure 1.">
-<line class="ax" x1="60" y1="210" x2="500" y2="210"/>
-<line class="ax" x1="60" y1="20" x2="60" y2="210"/>
-<line class="ink" x1="60" y1="30" x2="500" y2="30" stroke-dasharray="0.1 9" stroke-width="3"/>
-<line class="hi" x1="60" y1="210" x2="500" y2="210" stroke-width="4"/>
-<text x="50" y="35" text-anchor="end">1</text>
-<text x="50" y="215" text-anchor="end">0</text>
-<text x="500" y="18" text-anchor="end">x ∈ ℚ: measure 0</text>
-<text class="hi" x="500" y="198" text-anchor="end">x ∉ ℚ: measure 1</text>
-<text class="dim" x="60" y="232" text-anchor="middle">0</text>
-<text class="dim" x="500" y="232" text-anchor="middle">1</text>
-</svg>
-</figure>
 
 ## Quick Note
 

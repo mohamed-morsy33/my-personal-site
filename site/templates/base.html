@@ -5,10 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0a0a0a">
-    {% block head %}
-    <title>{% block title %}thebigmo.dev{% endblock title %}</title>
-    <meta name="description" content="{% block description %}Math, physics and coding problems, solved and simulated.{% endblock description %}">
-    {% endblock head %}
+    <title>{{ seo.title }}</title>
+    <meta name="description" content="{{ seo.description }}">
+    <meta name="author" content="Mohamed Morsy">
+    {% if seo.noindex %}<meta name="robots" content="noindex, follow">{% else %}<link rel="canonical" href="{{ seo.url | safe }}">{% endif %}
+    <meta property="og:site_name" content="Mohamed Morsy">
+    <meta property="og:type" content="{{ seo.kind }}">
+    <meta property="og:title" content="{{ seo.title }}">
+    <meta property="og:description" content="{{ seo.description }}">
+    <meta property="og:url" content="{{ seo.url | safe }}">
+    <meta name="twitter:card" content="summary">
+    {% if seo.schema %}<script type="application/ld+json">{{ seo.schema | safe }}</script>{% endif %}
     <link rel="preload" href="/static/fonts/MochiyPopOne-400-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/static/fonts/Sniglet-400-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230a0a0a'/%3E%3Crect x='4' y='4' width='8' height='8' rx='1.5' fill='%23ffd400'/%3E%3C/svg%3E">
@@ -41,7 +48,7 @@
     {% block footer %}
     <footer class="site-footer">
         <div class="wrap footer-inner">
-            <span>&copy; 2026 thebigmo.dev</span>
+            <span>&copy; 2026 Mohamed Morsy</span>
         </div>
     </footer>
     {% endblock footer %}

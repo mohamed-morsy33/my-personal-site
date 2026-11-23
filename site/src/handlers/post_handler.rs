@@ -27,7 +27,7 @@ pub async fn tag(site: web::Data<Site>, path: web::Path<String>) -> impl Respond
     };
     site.render(
         "list.html",
-        &pages::list("tagged", &heading, &matching),
+        &pages::list("tagged", &heading, &format!("/tags/{slug}/"), &matching),
         StatusCode::OK,
     )
 }
@@ -45,13 +45,18 @@ pub async fn day(site: web::Data<Site>, path: web::Path<String>) -> impl Respond
     }
     site.render(
         "list.html",
-        &pages::list("posted on", &pretty_date(date), &matching),
+        &pages::list(
+            "posted on",
+            &pretty_date(date),
+            &format!("/on/{}/", date.format("%Y-%m-%d")),
+            &matching,
+        ),
         StatusCode::OK,
     )
 }
 
 fn not_found_page(site: &Site) -> HttpResponse {
-    site.render("404.html", &tera::Context::new(), StatusCode::NOT_FOUND)
+    site.render("404.html", &pages::not_found(), StatusCode::NOT_FOUND)
 }
 
 pub async fn not_found(site: web::Data<Site>) -> impl Responder {

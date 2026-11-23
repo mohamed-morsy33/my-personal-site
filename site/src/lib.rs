@@ -15,6 +15,8 @@ pub mod posts;
 
 use posts::Post;
 
+pub const SITE_URL: &str = "https://thebigmo.dev";
+
 pub struct Site {
     pub root: PathBuf,
     pub live_reload: bool,
@@ -32,6 +34,7 @@ fn load_templates(root: &PathBuf) -> Result<Tera, String> {
         .map(|d| d.as_secs())
         .unwrap_or(0);
     tera.global_context().insert("v", &version);
+    tera.global_context().insert("site_url", SITE_URL);
     tera.load_from_glob(&glob).map_err(|e| format!("{e:?}"))?;
     Ok(tera)
 }

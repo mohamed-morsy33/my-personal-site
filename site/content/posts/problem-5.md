@@ -1,5 +1,6 @@
 +++
 title = "Calculating Work for a Vector Field"
+description = "Calculate the work done by the vector field y i − x j around the unit circle with a line integral. A worked physics and vector calculus solution."
 posted = 2026-11-10
 tags = ["Math", "Vector Calculus", "Physics"]
 status = "solved"

@@ -1,5 +1,6 @@
 +++
 title = "Regiomontanus's Problem"
+description = "Solve Regiomontanus's problem: find the distance from a wall that maximizes your viewing angle of a painting using trigonometry and calculus."
 posted = 2026-11-17
 tags = ["Trigonometry", "Calculus", "Geometry"]
 status = "solved"
